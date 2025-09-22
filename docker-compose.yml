@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  dotnet-hello-world:
+    image: amithajare5734/dotnet-hello-world:${TAG}
+    ports:
+      - "80:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
