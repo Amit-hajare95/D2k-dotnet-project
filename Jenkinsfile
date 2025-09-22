@@ -18,7 +18,7 @@ pipeline {
             agent { label 'master' }   
             steps {
                 sh '''
-                  rm -rf ${CLONE_DIR}
+                  rm -rf /var/lib/jenkins/workspace/dotnet-hello-world dotnet-hello-world@tmp
                   git clone -b ${BRANCH} https://github.com/doddatpivotal/dotnet-hello-world.git ${CLONE_DIR}
                 '''
             }
@@ -31,6 +31,7 @@ pipeline {
                     sh '''
                       cp -f /var/lib/jenkins/workspace/Dockerfile ./Dockerfile
                       cp -f /var/lib/jenkins/workspace/docker-compose.yml ./docker-compose.yml
+                      cp -f /var/lib/jenkins/workspace/Jenkinsfile ./Jenkinsfile
                       chown -R jenkins:jenkins .
                     '''
                 }
@@ -91,8 +92,7 @@ pipeline {
             }
         }
     }
-    
-      post {
+    post {
         success {
             echo "Build SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
         }
